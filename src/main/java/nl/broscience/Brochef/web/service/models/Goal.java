@@ -1,7 +1,16 @@
 package nl.broscience.Brochef.web.service.models;
 
-public class Goal {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "goals")
+public class Goal {
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
     private String description;
 
