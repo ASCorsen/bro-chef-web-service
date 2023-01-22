@@ -16,8 +16,8 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String gender;
-    private String weight;
-    private String height;
+    private int weight;
+    private int height;
     private LocalDate dob;
     private boolean isVegan;
     private boolean isVegetarian;
@@ -54,19 +54,19 @@ public class Customer {
         this.gender = gender;
     }
 
-    public String getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    public String getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
