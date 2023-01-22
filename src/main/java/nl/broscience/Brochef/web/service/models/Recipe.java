@@ -1,10 +1,30 @@
 package nl.broscience.Brochef.web.service.models;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "recipes")
 public class Recipe {
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
     private boolean isVegan;
     private boolean isVegetarian;
-    private Product product;
+
+    @ManyToMany
+    private Set<Product> Product = new HashSet<>();
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -30,11 +50,11 @@ public class Recipe {
         isVegetarian = vegetarian;
     }
 
-    public Product getProduct() {
-        return product;
+    public Set<Product> getProduct() {
+        return Product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(Set<Product> product) {
+        Product = product;
     }
 }

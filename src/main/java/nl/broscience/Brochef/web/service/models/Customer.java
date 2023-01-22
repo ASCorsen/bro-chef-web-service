@@ -1,8 +1,18 @@
 package nl.broscience.Brochef.web.service.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "customers")
 public class Customer {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String firstName;
     private String lastName;
     private String gender;
@@ -11,6 +21,14 @@ public class Customer {
     private LocalDate dob;
     private boolean isVegan;
     private boolean isVegetarian;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
