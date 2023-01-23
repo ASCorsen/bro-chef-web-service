@@ -17,11 +17,12 @@ public class GoalController {
     @Autowired
     private GoalRepository repos;
 
+
     @GetMapping("")
-    public ResponseEntity<Iterable<Goal>> getAllCustomer() { return ResponseEntity.ok(repos.findAll()); }
+    public ResponseEntity<Iterable<Goal>> getAllGoals() { return ResponseEntity.ok(repos.findAll()); }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Goal>> getCustomer(@PathVariable Long id) {
+    public ResponseEntity<Optional<Goal>> getGoal(@PathVariable Long id) {
         return ResponseEntity.ok(repos.findById(id)); }
 
     @PostMapping("")
@@ -34,6 +35,8 @@ public class GoalController {
                         .path("/goals/" + savedGoal.getId()).toUriString());
         return ResponseEntity.created(uri).body("Goal has been created");
     }
+
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<Object> deleteGoal(@PathVariable Long id) {

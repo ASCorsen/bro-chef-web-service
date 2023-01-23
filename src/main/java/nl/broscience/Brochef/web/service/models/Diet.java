@@ -1,9 +1,6 @@
 package nl.broscience.Brochef.web.service.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "diets")
@@ -13,6 +10,17 @@ public class Diet {
     private Long id;
     private String name;
     private String description;
+
+    @OneToOne
+    private Goal goal;
+
+    public Goal getGoal() {
+        return goal;
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
+    }
 
     public Long getId() {
         return id;

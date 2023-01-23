@@ -1,6 +1,7 @@
 package nl.broscience.Brochef.web.service.controller;
 
 
+import nl.broscience.Brochef.web.service.models.Product;
 import nl.broscience.Brochef.web.service.models.Recipe;
 import nl.broscience.Brochef.web.service.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 
 @RestController
@@ -19,6 +21,10 @@ public class RecipeController {
 
     @GetMapping("")
     public ResponseEntity<Iterable<Recipe>> getAllRecipes() { return ResponseEntity.ok(repos.findAll()); }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Optional<Recipe>> getRecipeById(@PathVariable Long id) {
+        return ResponseEntity.ok(repos.findById(id)); }
 
     @PostMapping("")
     public ResponseEntity<String> createRecipe(@RequestBody Recipe recipe) {

@@ -1,7 +1,13 @@
 package nl.broscience.Brochef.web.service.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,9 +20,18 @@ public class Recipe {
     private boolean isVegan;
     private boolean isVegetarian;
 
-    @ManyToMany
-    private Set<Product> Product = new HashSet<>();
 
+    @OneToMany(mappedBy = "recipe")
+    @JsonIgnore
+    private List<Product> products;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public Long getId() {
         return id;
@@ -50,11 +65,4 @@ public class Recipe {
         isVegetarian = vegetarian;
     }
 
-    public Set<Product> getProduct() {
-        return Product;
-    }
-
-    public void setProduct(Set<Product> product) {
-        Product = product;
-    }
 }

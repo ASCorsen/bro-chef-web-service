@@ -1,9 +1,6 @@
 package nl.broscience.Brochef.web.service.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -21,6 +18,7 @@ public class Customer {
     private LocalDate dob;
     private boolean isVegan;
     private boolean isVegetarian;
+
 
     public Long getId() {
         return id;
