@@ -2,7 +2,10 @@ package nl.broscience.Brochef.web.service.controller;
 
 import nl.broscience.Brochef.web.service.models.Customer;
 import nl.broscience.Brochef.web.service.models.Diet;
+import nl.broscience.Brochef.web.service.models.Goal;
+import nl.broscience.Brochef.web.service.models.Recipe;
 import nl.broscience.Brochef.web.service.repositories.DietRepository;
+import nl.broscience.Brochef.web.service.repositories.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,9 @@ public class DietController {
     @Autowired
     private DietRepository repos;
 
+    @Autowired
+    private GoalRepository goalRepository;
+
     @GetMapping("")
     public ResponseEntity<Iterable<Diet>> getAllGoals() { return ResponseEntity.ok(repos.findAll()); }
 
@@ -25,8 +31,11 @@ public class DietController {
     public ResponseEntity<Optional<Diet>> getDiet(@PathVariable Long id) {
         return ResponseEntity.ok(repos.findById(id)); }
 
-    @PostMapping("")
-    public ResponseEntity<String> createDiet(@RequestBody Diet diet) {
+    @PostMapping("{id}")
+    public ResponseEntity<String> createDiet(@PathVariable Long id,@RequestBody Diet diet) {
+
+        Goal goal = goalRepository.findById(id).get();
+        diet.setGoal(goal);
         Diet savedDiet = repos.save(diet);
 
         URI uri = URI.create(

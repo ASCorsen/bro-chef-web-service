@@ -1,9 +1,9 @@
 package nl.broscience.Brochef.web.service.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "goals")
@@ -13,6 +13,18 @@ public class Goal {
     private Long id;
     private String name;
     private String description;
+
+    @OneToOne
+    @JsonIgnore
+    private Diet diet;
+
+    public Diet getDiet() {
+        return diet;
+    }
+
+    public void setDiet(Diet diet) {
+        this.diet = diet;
+    }
 
     public String getName() {
         return name;

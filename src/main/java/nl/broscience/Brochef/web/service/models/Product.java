@@ -1,16 +1,31 @@
 package nl.broscience.Brochef.web.service.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Product {
+public class Product  {
+
     @Id
     @GeneratedValue
     private Long id;
     private String name;
     private String description;
+
+
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
+
 
 
     public Long getId() {
