@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BrochefWebServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BrochefWebServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BrochefWebServiceApplication.class, args);
+    }
 
 }

@@ -20,11 +20,14 @@ public class RecipeController {
     private RecipeRepository repos;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Recipe>> getAllRecipes() { return ResponseEntity.ok(repos.findAll()); }
+    public ResponseEntity<Iterable<Recipe>> getAllRecipes() {
+        return ResponseEntity.ok(repos.findAll());
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<Recipe>> getRecipeById(@PathVariable Long id) {
-        return ResponseEntity.ok(repos.findById(id)); }
+        return ResponseEntity.ok(repos.findById(id));
+    }
 
     @PostMapping("")
     public ResponseEntity<String> createRecipe(@RequestBody Recipe recipe) {
@@ -46,7 +49,7 @@ public class RecipeController {
     @PutMapping("{id}")
     public ResponseEntity<String> deleteRecipe(@PathVariable Long id, @RequestBody Recipe newRecipe) {
         Recipe recipe = repos.findById(id).get();
-        if (recipe != null){
+        if (recipe != null) {
             newRecipe.setId(id);
             recipe = newRecipe;
             repos.save(recipe);
