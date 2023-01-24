@@ -19,11 +19,14 @@ public class GoalController {
 
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Goal>> getAllGoals() { return ResponseEntity.ok(repos.findAll()); }
+    public ResponseEntity<Iterable<Goal>> getAllGoals() {
+        return ResponseEntity.ok(repos.findAll());
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<Goal>> getGoal(@PathVariable Long id) {
-        return ResponseEntity.ok(repos.findById(id)); }
+        return ResponseEntity.ok(repos.findById(id));
+    }
 
     @PostMapping("")
     public ResponseEntity<String> createGoal(@RequestBody Goal goal) {
@@ -37,7 +40,6 @@ public class GoalController {
     }
 
 
-
     @DeleteMapping("{id}")
     public ResponseEntity<Object> deleteGoal(@PathVariable Long id) {
         repos.deleteById(id);
@@ -47,7 +49,7 @@ public class GoalController {
     @PutMapping("{id}")
     public ResponseEntity<String> updateGoal(@PathVariable Long id, @RequestBody Goal newGoal) {
         Goal goal = repos.findById(id).get();
-        if (goal != null){
+        if (goal != null) {
             newGoal.setId(id);
             goal = newGoal;
             repos.save(goal);

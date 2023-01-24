@@ -35,7 +35,7 @@ public class UploadDownloadWithDatabaseController {
 
         String contentType = file.getContentType();
 
-        return new FileUploadResponse(fileDocument.getFileName(), url, contentType );
+        return new FileUploadResponse(fileDocument.getFileName(), url, contentType);
     }
 
     //    get for single download
@@ -45,11 +45,11 @@ public class UploadDownloadWithDatabaseController {
         return databaseService.singleFileDownload(fileName, request);
     }
 
-//    post for multiple uploads to database
+    //    post for multiple uploads to database
     @PostMapping("/multiple/upload/db")
-    List<FileUploadResponse> multipleUpload(@RequestParam("files") MultipartFile [] files) {
+    List<FileUploadResponse> multipleUpload(@RequestParam("files") MultipartFile[] files) {
 
-        if(files.length > 7) {
+        if (files.length > 7) {
             throw new RuntimeException("to many files selected");
         }
 
@@ -65,7 +65,7 @@ public class UploadDownloadWithDatabaseController {
     }
 
     @GetMapping("/getAll/db")
-    public Collection<FileDocument> getAllFromDB(){
+    public Collection<FileDocument> getAllFromDB() {
         return databaseService.getALlFromDB();
     }
 }

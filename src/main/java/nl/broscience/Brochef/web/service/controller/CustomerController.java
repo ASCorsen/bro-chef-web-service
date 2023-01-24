@@ -24,11 +24,14 @@ public class CustomerController {
     private GoalRepository goalRepo;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Customer>> getAllCustomer() { return ResponseEntity.ok(repos.findAll()); }
+    public ResponseEntity<Iterable<Customer>> getAllCustomer() {
+        return ResponseEntity.ok(repos.findAll());
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<Customer>> getCustomer(@PathVariable Long id) {
-        return ResponseEntity.ok(repos.findById(id)); }
+        return ResponseEntity.ok(repos.findById(id));
+    }
 
     @PostMapping("")
     public ResponseEntity<String> createCustomer(@RequestBody Customer customer) {
@@ -65,7 +68,7 @@ public class CustomerController {
     @PutMapping("{id}")
     public ResponseEntity<String> updateCustomer(@PathVariable Long id, @RequestBody Customer newCustomer) {
         Customer customer = repos.findById(id).get();
-        if (customer != null){
+        if (customer != null) {
             newCustomer.setId(id);
             customer = newCustomer;
             repos.save(customer);

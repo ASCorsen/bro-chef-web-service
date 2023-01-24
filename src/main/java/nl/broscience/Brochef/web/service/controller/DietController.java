@@ -25,14 +25,17 @@ public class DietController {
     private GoalRepository goalRepository;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Diet>> getAllGoals() { return ResponseEntity.ok(repos.findAll()); }
+    public ResponseEntity<Iterable<Diet>> getAllGoals() {
+        return ResponseEntity.ok(repos.findAll());
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<Diet>> getDiet(@PathVariable Long id) {
-        return ResponseEntity.ok(repos.findById(id)); }
+        return ResponseEntity.ok(repos.findById(id));
+    }
 
     @PostMapping("{id}")
-    public ResponseEntity<String> createDiet(@PathVariable Long id,@RequestBody Diet diet) {
+    public ResponseEntity<String> createDiet(@PathVariable Long id, @RequestBody Diet diet) {
 
         Goal goal = goalRepository.findById(id).get();
         diet.setGoal(goal);
@@ -54,7 +57,7 @@ public class DietController {
     @PutMapping("{id}")
     public ResponseEntity<String> updateDiet(@PathVariable Long id, @RequestBody Diet newDiet) {
         Diet diet = repos.findById(id).get();
-        if (diet != null){
+        if (diet != null) {
             newDiet.setId(id);
             diet = newDiet;
             repos.save(diet);

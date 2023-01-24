@@ -25,7 +25,7 @@ import java.util.zip.ZipOutputStream;
 public class DatabaseService {
     private final DocFileRepository doc;
 
-    public DatabaseService(DocFileRepository doc){
+    public DatabaseService(DocFileRepository doc) {
         this.doc = doc;
     }
 
@@ -45,9 +45,9 @@ public class DatabaseService {
 
     }
 
-    public ResponseEntity<byte[]> singleFileDownload(String fileName, HttpServletRequest request){
+    public ResponseEntity<byte[]> singleFileDownload(String fileName, HttpServletRequest request) {
 
-       FileDocument document = doc.findByFileName(fileName);
+        FileDocument document = doc.findByFileName(fileName);
 
 //        this mediaType decides witch type you accept if you only accept 1 type
 //        MediaType contentType = MediaType.IMAGE_JPEG;
@@ -62,7 +62,7 @@ public class DatabaseService {
 
     }
 
-    public List<FileUploadResponse> createMultipleUpload(MultipartFile[] files){
+    public List<FileUploadResponse> createMultipleUpload(MultipartFile[] files) {
         List<FileUploadResponse> uploadResponseList = new ArrayList<>();
         Arrays.stream(files).forEach(file -> {
 
@@ -118,7 +118,7 @@ public class DatabaseService {
             throw new RuntimeException("Issue in reading the file", e);
         }
 
-        if(resource.exists()&& resource.isReadable()) {
+        if (resource.exists() && resource.isReadable()) {
             return resource;
         } else {
             throw new RuntimeException("the file doesn't exist or not readable");
@@ -127,18 +127,18 @@ public class DatabaseService {
 
     public void createZipEntry(String file, ZipOutputStream zos) throws IOException {
 
-            Resource resource = downLoadFileDatabase(file);
-                ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
-                try {
-                    zipEntry.setSize(resource.contentLength());
-                    zos.putNextEntry(zipEntry);
+        Resource resource = downLoadFileDatabase(file);
+        ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
+        try {
+            zipEntry.setSize(resource.contentLength());
+            zos.putNextEntry(zipEntry);
 
-                    StreamUtils.copy(resource.getInputStream(), zos);
+            StreamUtils.copy(resource.getInputStream(), zos);
 
-                    zos.closeEntry();
-                } catch (IOException e) {
-                    System.out.println("some exception while zipping");
-                }
+            zos.closeEntry();
+        } catch (IOException e) {
+            System.out.println("some exception while zipping");
+        }
 
     }
 }

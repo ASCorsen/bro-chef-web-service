@@ -4,14 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Product  {
+public class Product {
 
     @Id
     @GeneratedValue
     private Long id;
     private String name;
     private String description;
-
 
 
     public Recipe getRecipe() {
@@ -25,7 +24,6 @@ public class Product  {
     @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
-
 
 
     public Long getId() {
