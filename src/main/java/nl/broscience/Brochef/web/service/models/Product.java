@@ -1,5 +1,7 @@
 package nl.broscience.Brochef.web.service.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -7,7 +9,8 @@ import java.io.Serializable;
 public class Product {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")
+    @GenericGenerator(name = "seq", strategy="increment")
     private Long id;
     private String name;
     private String description;

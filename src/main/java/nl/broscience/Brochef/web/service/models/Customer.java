@@ -1,5 +1,7 @@
 package nl.broscience.Brochef.web.service.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
@@ -10,7 +12,8 @@ import java.time.LocalDate;
 @Table(name = "customers")
 public class Customer {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")
+    @GenericGenerator(name = "seq", strategy="increment")
     private Long id;
 
     private String firstName;

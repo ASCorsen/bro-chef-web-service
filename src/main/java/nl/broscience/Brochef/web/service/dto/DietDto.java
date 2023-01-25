@@ -21,6 +21,9 @@ public class DietDto {
         this.goal = diet.getGoal();
     }
 
+    public DietDto() {
+    }
+
     public String getName() {
         return name;
     }
