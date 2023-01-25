@@ -3,6 +3,7 @@ package nl.broscience.Brochef.web.service.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,9 @@ public class Goal {
     @Id
     @GeneratedValue
     private Long id;
+
     private String name;
+
     private String description;
 
     @OneToOne

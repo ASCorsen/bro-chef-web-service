@@ -1,6 +1,9 @@
 package nl.broscience.Brochef.web.service.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -18,7 +21,6 @@ public class Customer {
     private LocalDate dob;
     private boolean isVegan;
     private boolean isVegetarian;
-
 
     public Long getId() {
         return id;
