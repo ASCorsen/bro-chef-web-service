@@ -9,18 +9,18 @@ public class CustomerDto {
 
     private Long id;
     @NotNull(message = "Please enter a Firstname")
-    public String firstName;
+    private String firstName;
     @NotNull(message = "Please enter a Lastname")
-    public String lastName;
+    private String lastName;
     @NotNull(message = "Please enter a Gender 'Male','Female','Other' ")
-    public String gender;
-    public int weight;
-    public int height;
+    private String gender;
+    private int weight;
+    private int height;
     @Past
-    public LocalDate dob;
-    public boolean isVegan;
-    public boolean isVegetarian;
-//
+    private LocalDate dob;
+    private boolean isVegan;
+    private boolean isVegetarian;
+
     public CustomerDto() {
     }
 

@@ -2,9 +2,8 @@ package nl.broscience.Brochef.web.service.dto;
 
 import nl.broscience.Brochef.web.service.models.Diet;
 import nl.broscience.Brochef.web.service.models.Goal;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
 
 public class GoalDto {
     @NotBlank(message = "Please specify Goal: 'Build Muscle','Conditioning', 'LoseWeight'")
