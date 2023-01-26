@@ -1,13 +1,10 @@
 package nl.broscience.Brochef.web.service.services;
 
-import nl.broscience.Brochef.web.service.dto.GoalDto;
 import nl.broscience.Brochef.web.service.dto.RecipeDto;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
-import nl.broscience.Brochef.web.service.models.Goal;
 import nl.broscience.Brochef.web.service.models.Recipe;
 import nl.broscience.Brochef.web.service.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 
 @Service
@@ -69,7 +66,5 @@ public class RecipeService {
             throw new RecordNotFoundException("No Recipe found with this ID");
         }
     }
-
-
 
 }

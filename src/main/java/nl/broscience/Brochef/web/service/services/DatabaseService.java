@@ -12,7 +12,6 @@ import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -24,11 +23,9 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class DatabaseService {
     private final DocFileRepository doc;
-
     public DatabaseService(DocFileRepository doc) {
         this.doc = doc;
     }
-
     public Collection<FileDocument> getALlFromDB() {
         return doc.findAll();
     }
@@ -49,15 +46,8 @@ public class DatabaseService {
 
         FileDocument document = doc.findByFileName(fileName);
 
-//        this mediaType decides witch type you accept if you only accept 1 type
-//        MediaType contentType = MediaType.IMAGE_JPEG;
-//        this is going to accept multiple types
-
         String mimeType = request.getServletContext().getMimeType(document.getFileName());
 
-//        for download attachment use next line
-//        return ResponseEntity.ok().contentType(contentType).header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + resource.getFilename()).body(resource);
-//        for showing image in browser
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + document.getFileName()).body(document.getDocFile());
 
     }

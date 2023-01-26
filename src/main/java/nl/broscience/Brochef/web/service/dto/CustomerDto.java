@@ -1,11 +1,8 @@
 package nl.broscience.Brochef.web.service.dto;
 
 import nl.broscience.Brochef.web.service.models.Customer;
-
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class CustomerDto {

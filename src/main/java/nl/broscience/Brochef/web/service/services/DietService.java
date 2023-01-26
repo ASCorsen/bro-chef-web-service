@@ -1,17 +1,14 @@
 package nl.broscience.Brochef.web.service.services;
 
 import nl.broscience.Brochef.web.service.dto.DietDto;
-import nl.broscience.Brochef.web.service.dto.GoalDto;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
 import nl.broscience.Brochef.web.service.models.Diet;
 import nl.broscience.Brochef.web.service.models.Goal;
 import nl.broscience.Brochef.web.service.repositories.DietRepository;
 import nl.broscience.Brochef.web.service.repositories.GoalRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class DietService {
@@ -23,7 +20,6 @@ public class DietService {
         this.repos = repos;
         this.goalRepos = goalRepos;
     }
-
     public Long createDiet(DietDto dietDto,Long goalId) {
         if (goalRepos.findById(goalId).isPresent()) {
             Diet newDiet = new Diet();
@@ -31,16 +27,17 @@ public class DietService {
             newDiet.setName(dietDto.name);
             newDiet.setDescription(dietDto.description);
 
-          Goal goalObject = goalRepos.findById(goalId).get();
+            Goal goalObject = goalRepos.findById(goalId).get();
             newDiet.setGoal(goalObject);
 
             Diet savedDiet = repos.save(newDiet);
-            return savedDiet.getId();
 
+            return savedDiet.getId();
         } else {
-            throw new RecordNotFoundException("No Goal has been found with this ID");
+            throw new RecordNotFoundException("No Goal found, make sure Goal has been created before adding Diet.");
         }
     }
+
     public Iterable<DietDto> getAllDiet() {
         Iterable<Diet> dietList = repos.findAll();
         ArrayList<DietDto> dietDtoList = new ArrayList<>();
@@ -68,7 +65,6 @@ public class DietService {
             throw new RecordNotFoundException("No Diet found with this ID");
         }
     }
-
     public DietDto updateDiet(Long id, Diet newDiet) {
 
         if(repos.findById(id).isPresent()) {
@@ -80,7 +76,5 @@ public class DietService {
             throw new RecordNotFoundException("No Diet found with this ID");
         }
     }
-
-
 
 }

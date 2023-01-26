@@ -7,11 +7,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class GoalDto {
-    @NotNull(message = "Please specify Goal: 'Build Muscle','Conditioning', 'LoseWeight'")
+    @NotBlank(message = "Please specify Goal: 'Build Muscle','Conditioning', 'LoseWeight'")
     public String name;
-    @NotNull(message = "Empty field! Describe the goal: gain more strength, gain muscle, more time spend in gym")
+    @NotBlank(message = "Empty field! Describe the goal: gain more strength, gain muscle, more time spend in gym")
     public String description;
-    @NotNull
+
     public Diet diet;
 
     public GoalDto() {

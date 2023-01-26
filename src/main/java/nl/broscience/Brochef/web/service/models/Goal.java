@@ -2,10 +2,8 @@ package nl.broscience.Brochef.web.service.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+
 
 @Entity
 @Table(name = "goals")
@@ -20,6 +18,7 @@ public class Goal {
     private String description;
 
     @OneToOne
+    @JoinColumn(name = "diet_id")
     @JsonIgnore
     private Diet diet;
 

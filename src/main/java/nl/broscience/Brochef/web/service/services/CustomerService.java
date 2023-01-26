@@ -5,7 +5,6 @@ import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
 import nl.broscience.Brochef.web.service.models.Customer;
 import nl.broscience.Brochef.web.service.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 
 @Service

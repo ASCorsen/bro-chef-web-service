@@ -1,7 +1,6 @@
 package nl.broscience.Brochef.web.service.models;
 
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +13,7 @@ public class Diet {
     private String name;
     private String description;
 
-    @OneToOne
+    @OneToOne()
     private Goal goal;
 
     public Goal getGoal() {

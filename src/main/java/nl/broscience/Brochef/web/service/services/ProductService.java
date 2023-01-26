@@ -1,11 +1,8 @@
 package nl.broscience.Brochef.web.service.services;
 
-import nl.broscience.Brochef.web.service.dto.DietDto;
+
 import nl.broscience.Brochef.web.service.dto.ProductDto;
-import nl.broscience.Brochef.web.service.dto.RecipeDto;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
-import nl.broscience.Brochef.web.service.models.Diet;
-import nl.broscience.Brochef.web.service.models.Goal;
 import nl.broscience.Brochef.web.service.models.Product;
 import nl.broscience.Brochef.web.service.models.Recipe;
 import nl.broscience.Brochef.web.service.repositories.ProductRepository;
@@ -35,10 +32,11 @@ public class ProductService {
             newProduct.setRecipe(recipeObject);
 
             Product savedProduct = prodRepo.save(newProduct);
+
             return savedProduct.getId();
 
         } else {
-            throw new RecordNotFoundException("No Product has been found with this ID");
+            throw new RecordNotFoundException("No Recipe found, make sure Recipe is created before adding products. ");
         }
     }
     public Iterable<ProductDto> getAllProducts() {

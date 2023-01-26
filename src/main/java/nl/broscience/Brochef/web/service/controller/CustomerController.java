@@ -17,8 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
-//    @Autowired
-//    private CustomerRepository repos;
 
 private final CustomerService service;
 
@@ -41,7 +39,6 @@ private final CustomerService service;
     public ResponseEntity<String> createCustomer(@Valid @RequestBody CustomerDto customerDto , BindingResult br) {
         Long createdId = service.createCustomer(customerDto);
         if (br.hasErrors()) {
-            // something's wrong
             StringBuilder sb = new StringBuilder();
             for (FieldError fe : br.getFieldErrors()) {
                 sb.append(fe.getField() + ": ");
@@ -50,9 +47,6 @@ private final CustomerService service;
             }
             return new ResponseEntity<>(sb.toString(), HttpStatus.BAD_REQUEST);
         } else {
-
-//        Customer savedCustomer = repos.save(customer);
-
             URI uri = URI.create(
                     ServletUriComponentsBuilder
                             .fromCurrentContextPath()
@@ -60,8 +54,6 @@ private final CustomerService service;
             return ResponseEntity.created(uri).body("Customer created!");
         }
     }
-
-
 
     @DeleteMapping("{id}")
     public ResponseEntity<Object> deleteCustomer(@PathVariable Long id) {

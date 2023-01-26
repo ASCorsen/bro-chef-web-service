@@ -1,9 +1,7 @@
 package nl.broscience.Brochef.web.service.services;
 
-import nl.broscience.Brochef.web.service.dto.CustomerDto;
 import nl.broscience.Brochef.web.service.dto.GoalDto;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
-import nl.broscience.Brochef.web.service.models.Customer;
 import nl.broscience.Brochef.web.service.models.Goal;
 import nl.broscience.Brochef.web.service.repositories.GoalRepository;
 import org.springframework.stereotype.Service;
@@ -21,16 +19,13 @@ public class GoalService {
     public Long createGoal(GoalDto goalDto) {
         Goal newGoal = new Goal();
 
-
         newGoal.setName(goalDto.name);
         newGoal.setDescription(goalDto.description);
         newGoal.setDiet(goalDto.diet);
 
-
         Goal savedGoal = repos.save(newGoal);
         return newGoal.getId();
     }
-
     public Iterable<GoalDto> getAllGoals() {
         Iterable<Goal> goalList = repos.findAll();
         ArrayList<GoalDto> goalDtoList = new ArrayList<>();
@@ -49,7 +44,6 @@ public class GoalService {
             throw new RecordNotFoundException("No Goal found with this ID");
         }
     }
-
     public GoalDto getGoalDtoById(Long id) {
         if (repos.findById(id).isPresent()) {
             Goal goal   = repos.findById(id).get();
@@ -59,7 +53,6 @@ public class GoalService {
             throw new RecordNotFoundException("No Goal found with this ID");
         }
     }
-
     public GoalDto updateGoal(Long id, Goal newGoal) {
 
         if(repos.findById(id).isPresent()) {

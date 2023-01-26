@@ -2,7 +2,6 @@ package nl.broscience.Brochef.web.service.dto;
 
 import nl.broscience.Brochef.web.service.models.Product;
 import nl.broscience.Brochef.web.service.models.Recipe;
-
 import javax.validation.constraints.NotBlank;
 
 public class ProductDto {
@@ -11,8 +10,6 @@ public class ProductDto {
     @NotBlank(message = "Describe your product")
     public String description;
     public Recipe recipe;
-
-
 
     public ProductDto(String name, String description, Recipe recipe) {
         this.name = name;
@@ -25,8 +22,6 @@ public class ProductDto {
         this.description = product.getDescription();
         this.recipe = product.getRecipe();
     }
-
-
 
     public String getName() {
         return name;

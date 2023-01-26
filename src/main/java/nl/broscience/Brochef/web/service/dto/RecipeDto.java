@@ -2,9 +2,7 @@ package nl.broscience.Brochef.web.service.dto;
 
 import nl.broscience.Brochef.web.service.models.Product;
 import nl.broscience.Brochef.web.service.models.Recipe;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class RecipeDto {
