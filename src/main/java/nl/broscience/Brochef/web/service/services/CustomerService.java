@@ -19,14 +19,14 @@ public class CustomerService {
     public Long createCustomer(CustomerDto customerDto) {
         Customer newCustomer = new Customer();
 
-        newCustomer.setFirstName(customerDto.firstName);
-        newCustomer.setLastName(customerDto.lastName);
-        newCustomer.setGender(customerDto.gender);
-        newCustomer.setWeight(customerDto.weight);
-        newCustomer.setHeight(customerDto.height);
-        newCustomer.setDob(customerDto.dob);
-        newCustomer.setVegan(customerDto.isVegan);
-        newCustomer.setVegetarian(customerDto.isVegetarian);
+        newCustomer.setFirstName(customerDto.getFirstName());
+        newCustomer.setLastName(customerDto.getLastName());
+        newCustomer.setGender(customerDto.getGender());
+        newCustomer.setWeight(customerDto.getWeight());
+        newCustomer.setHeight(customerDto.getHeight());
+        newCustomer.setDob(customerDto.getDob());
+        newCustomer.setVegan(customerDto.isVegan());
+        newCustomer.setVegetarian(customerDto.isVegetarian());
 
         Customer savedCustomer = repos.save(newCustomer);
         return savedCustomer.getId();
