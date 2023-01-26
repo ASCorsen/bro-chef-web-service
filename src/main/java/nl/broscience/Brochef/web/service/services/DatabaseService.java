@@ -67,7 +67,7 @@ public class DatabaseService {
 
             doc.save(fileDocument);
 
-//            next line makes url. example "http://localhost:8080/download/naam.jpg"
+
             String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFromDB/").path(name).toUriString();
 
             String contentType = file.getContentType();
