@@ -1,62 +1,72 @@
 package nl.broscience.Brochef.web.service.controller;
 
 
-import nl.broscience.Brochef.web.service.models.Product;
+import nl.broscience.Brochef.web.service.dto.RecipeDto;
+import nl.broscience.Brochef.web.service.models.Goal;
 import nl.broscience.Brochef.web.service.models.Recipe;
-import nl.broscience.Brochef.web.service.repositories.RecipeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import nl.broscience.Brochef.web.service.services.RecipeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
-    @Autowired
-    private RecipeRepository repos;
+private final RecipeService service;
+
+    public RecipeController(RecipeService service) {
+        this.service = service;
+    }
+
+
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Recipe>> getAllRecipes() {
-        return ResponseEntity.ok(repos.findAll());
+    public ResponseEntity<Iterable<RecipeDto>> getAllRecipes() {
+        return ResponseEntity.ok(service.getAllRecipes());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Recipe>> getRecipeById(@PathVariable Long id) {
-        return ResponseEntity.ok(repos.findById(id));
+    public ResponseEntity<RecipeDto> getRecipeById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getRecipeById(id));
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createRecipe(@RequestBody Recipe recipe) {
-        Recipe savedRecipe = repos.save(recipe);
-
-        URI uri = URI.create(
-                ServletUriComponentsBuilder
-                        .fromCurrentContextPath()
-                        .path("/recipes/" + savedRecipe.getId()).toUriString());
-        return ResponseEntity.created(uri).body("Recipe has been created!");
+    public ResponseEntity<String> createRecipe(@Valid @RequestBody RecipeDto recipeDto, BindingResult br) {
+       Long  savedRecipe = service.createRecipe(recipeDto);
+        if (br.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : br.getFieldErrors()) {
+                sb.append(fe.getField() + ": ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return new ResponseEntity<>(sb.toString(), HttpStatus.BAD_REQUEST);
+        } else {
+            URI uri = URI.create(
+                    ServletUriComponentsBuilder
+                            .fromCurrentContextPath()
+                            .path("/recipes/" + savedRecipe).toUriString());
+            return ResponseEntity.created(uri).body("Recipe has been created!");
+        }
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Object> deleteRecipe(@PathVariable Long id) {
-        repos.deleteById(id);
+        service.deleteRecipe(id);
         return ResponseEntity.ok().body("Recipe has been Deleted");
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable Long id, @RequestBody Recipe newRecipe) {
-        Recipe recipe = repos.findById(id).get();
-        if (recipe != null) {
-            newRecipe.setId(id);
-            recipe = newRecipe;
-            repos.save(recipe);
-            return ResponseEntity.ok().body("Recipe has been Updated");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<String> updateRecipe(@PathVariable Long id, @RequestBody Recipe newRecipe) {
+        service.updateRecipe(id, newRecipe);
+        return ResponseEntity.ok().body("Recipe Updated");
     }
 
 }

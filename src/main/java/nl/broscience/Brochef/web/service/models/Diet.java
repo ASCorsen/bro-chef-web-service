@@ -3,15 +3,18 @@ package nl.broscience.Brochef.web.service.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "diets")
+@Table(name = "diet")
 public class Diet {
-    @Id
-    @GeneratedValue
+
+@Id
+@Column(name = "goal_id", nullable = false)
     private Long id;
     private String name;
     private String description;
 
     @OneToOne
+    @MapsId
+    @JoinColumn(name = "goal_id")
     private Goal goal;
 
     public Goal getGoal() {

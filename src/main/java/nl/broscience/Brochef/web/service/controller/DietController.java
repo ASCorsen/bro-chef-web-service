@@ -1,70 +1,70 @@
 package nl.broscience.Brochef.web.service.controller;
 
-import nl.broscience.Brochef.web.service.models.Customer;
+import nl.broscience.Brochef.web.service.dto.DietDto;
 import nl.broscience.Brochef.web.service.models.Diet;
-import nl.broscience.Brochef.web.service.models.Goal;
-import nl.broscience.Brochef.web.service.models.Recipe;
-import nl.broscience.Brochef.web.service.repositories.DietRepository;
-import nl.broscience.Brochef.web.service.repositories.GoalRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import nl.broscience.Brochef.web.service.services.DietService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/diets")
 public class DietController {
 
-    @Autowired
-    private DietRepository repos;
+private final DietService dietservice;
 
-    @Autowired
-    private GoalRepository goalRepository;
+    public DietController(DietService dietservice) {
+        this.dietservice = dietservice;
+    }
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Diet>> getAllGoals() {
-        return ResponseEntity.ok(repos.findAll());
+    public ResponseEntity<Iterable<DietDto>> getAllGoals() {
+        return ResponseEntity.ok(dietservice.getAllDiet());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Diet>> getDiet(@PathVariable Long id) {
-        return ResponseEntity.ok(repos.findById(id));
+    public ResponseEntity<DietDto> getDiet(@PathVariable Long id) {
+        return ResponseEntity.ok(dietservice.getDietById(id));
     }
 
     @PostMapping("{id}")
-    public ResponseEntity<String> createDiet(@PathVariable Long id, @RequestBody Diet diet) {
+    public ResponseEntity<String> createDiet(@Valid @PathVariable Long id, @RequestBody DietDto dietDto, BindingResult br) {
 
-        Goal goal = goalRepository.findById(id).get();
-        diet.setGoal(goal);
-        Diet savedDiet = repos.save(diet);
+        Long savedDiet = dietservice.createDiet(dietDto, id);
+        if (br.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : br.getFieldErrors()) {
+                sb.append(fe.getField() + ": ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return new ResponseEntity<>(sb.toString(), HttpStatus.BAD_REQUEST);
+        } else {
+            URI uri = URI.create(
+                    ServletUriComponentsBuilder
+                            .fromCurrentContextPath()
+                            .path("/diets/" + savedDiet).toUriString());
+            return ResponseEntity.created(uri).body("Diet has been created");
+        }
 
-        URI uri = URI.create(
-                ServletUriComponentsBuilder
-                        .fromCurrentContextPath()
-                        .path("/diets/" + savedDiet.getId()).toUriString());
-        return ResponseEntity.created(uri).body("Diet has been created");
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Object> deleteDiet(@PathVariable Long id) {
-        repos.deleteById(id);
+        dietservice.deleteDiet(id);
         return ResponseEntity.ok().body("Diet has been Deleted");
     }
 
     @PutMapping("{id}")
     public ResponseEntity<String> updateDiet(@PathVariable Long id, @RequestBody Diet newDiet) {
-        Diet diet = repos.findById(id).get();
-        if (diet != null) {
-            newDiet.setId(id);
-            diet = newDiet;
-            repos.save(diet);
-            return ResponseEntity.ok().body("Diet has been Updated");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        dietservice.updateDiet(id, newDiet);
+        return ResponseEntity.ok().body("Diet Updated");
     }
 
 }
