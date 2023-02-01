@@ -1,7 +1,9 @@
 package nl.broscience.Brochef.web.service.services;
 
 import nl.broscience.Brochef.web.service.dto.RecipeDto;
+import nl.broscience.Brochef.web.service.exceptions.DeleteRecordException;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
+import nl.broscience.Brochef.web.service.exceptions.UpdateRecordException;
 import nl.broscience.Brochef.web.service.models.Recipe;
 import nl.broscience.Brochef.web.service.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
@@ -52,7 +54,7 @@ public class RecipeService {
         if (repos.findById(id).isPresent()) {
             repos.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No Recipe found with this ID");
+            throw new DeleteRecordException("No Recipe found with this ID");
         }
     }
     public RecipeDto updateRecipe(Long id, Recipe newRecipe) {
@@ -63,7 +65,7 @@ public class RecipeService {
             return new RecipeDto(newRecipe);
         }
         else {
-            throw new RecordNotFoundException("No Recipe found with this ID");
+            throw new UpdateRecordException("No Recipe found with this ID");
         }
     }
 

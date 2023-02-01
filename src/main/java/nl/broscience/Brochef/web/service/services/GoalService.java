@@ -1,7 +1,9 @@
 package nl.broscience.Brochef.web.service.services;
 
 import nl.broscience.Brochef.web.service.dto.GoalDto;
+import nl.broscience.Brochef.web.service.exceptions.DeleteRecordException;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
+import nl.broscience.Brochef.web.service.exceptions.UpdateRecordException;
 import nl.broscience.Brochef.web.service.models.Goal;
 import nl.broscience.Brochef.web.service.repositories.GoalRepository;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,7 @@ public class GoalService {
         if (repos.findById(id).isPresent()) {
             repos.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No Goal found with this ID");
+            throw new DeleteRecordException("No Goal found with this ID");
         }
     }
     public GoalDto getGoalDtoById(Long id) {
@@ -61,7 +63,7 @@ public class GoalService {
             return new GoalDto(newGoal);
         }
         else {
-            throw new RecordNotFoundException("No Goal found with this ID");
+            throw new UpdateRecordException("No Goal found with this ID");
         }
     }
 
