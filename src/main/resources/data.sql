@@ -6,16 +6,15 @@ VALUES
 
 insert into goal (id, description, name)
 values
-    (100,'Calories based on base metobolic rate','BMR-Kcal' ),
-    (101,'LOW Calorie meals','Low-KCal'),
-    (102, 'High kcal based bromeals','High-Kcal');
+    (100,'Marathon training focusing on recovery','Marathon' ),
+    (101,'Goal set for losing as much fat as possible','Burn-Fat'),
+    (102,'Training focused on building as much muscle possible','Bulking');
 
 insert into diet (goal_id, description, name)
 values
     (100, 'Calories based on base metobolic rate', 'BMR-Kcal' ),
     (101, 'LOW Calorie meals', 'Low-KCal'),
     (102, 'High kcal based bromeals', 'High-Kcal');
-
 
 insert into recipes(id, is_vegan, is_vegetarian, name)
 values
