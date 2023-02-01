@@ -1,7 +1,10 @@
 package nl.broscience.Brochef.web.service.services;
 
 import nl.broscience.Brochef.web.service.dto.DietDto;
+import nl.broscience.Brochef.web.service.exceptions.DeleteRecordException;
+import nl.broscience.Brochef.web.service.exceptions.NoRelatedObjectFoundException;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
+import nl.broscience.Brochef.web.service.exceptions.UpdateRecordException;
 import nl.broscience.Brochef.web.service.models.Diet;
 import nl.broscience.Brochef.web.service.models.Goal;
 import nl.broscience.Brochef.web.service.repositories.DietRepository;
@@ -34,7 +37,7 @@ public class DietService {
 
             return savedDiet.getId();
         } else {
-            throw new RecordNotFoundException("No Goal found, make sure Goal has been created before adding Diet.");
+            throw new NoRelatedObjectFoundException("No Goal found, make sure Goal has been created before adding Diet.");
         }
     }
 
@@ -62,7 +65,7 @@ public class DietService {
         if (repos.findById(id).isPresent()) {
             repos.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No Diet found with this ID");
+            throw new DeleteRecordException("No Diet found with this ID");
         }
     }
     public DietDto updateDiet(Long id, Diet newDiet) {
@@ -73,7 +76,7 @@ public class DietService {
             return new DietDto(newDiet);
         }
         else {
-            throw new RecordNotFoundException("No Diet found with this ID");
+            throw new UpdateRecordException("No Diet found with this ID");
         }
     }
 

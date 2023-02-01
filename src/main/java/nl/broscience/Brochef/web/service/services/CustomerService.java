@@ -1,7 +1,9 @@
 package nl.broscience.Brochef.web.service.services;
 
 import nl.broscience.Brochef.web.service.dto.CustomerDto;
+import nl.broscience.Brochef.web.service.exceptions.DeleteRecordException;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
+import nl.broscience.Brochef.web.service.exceptions.UpdateRecordException;
 import nl.broscience.Brochef.web.service.models.Customer;
 import nl.broscience.Brochef.web.service.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -47,7 +49,7 @@ public class CustomerService {
         if (repos.findById(id).isPresent()) {
             repos.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No Customer found with this ID");
+            throw new DeleteRecordException("No Customer found with this ID");
         }
     }
 
@@ -69,7 +71,7 @@ public class CustomerService {
             return new CustomerDto(newCustomer);
         }
          else {
-            throw new RecordNotFoundException("No Customer found with this ID");
+            throw new UpdateRecordException("No Customer found with this ID");
         }
     }
 

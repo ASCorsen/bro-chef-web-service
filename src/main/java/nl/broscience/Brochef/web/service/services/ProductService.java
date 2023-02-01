@@ -2,7 +2,10 @@ package nl.broscience.Brochef.web.service.services;
 
 
 import nl.broscience.Brochef.web.service.dto.ProductDto;
+import nl.broscience.Brochef.web.service.exceptions.DeleteRecordException;
+import nl.broscience.Brochef.web.service.exceptions.NoRelatedObjectFoundException;
 import nl.broscience.Brochef.web.service.exceptions.RecordNotFoundException;
+import nl.broscience.Brochef.web.service.exceptions.UpdateRecordException;
 import nl.broscience.Brochef.web.service.models.Product;
 import nl.broscience.Brochef.web.service.models.Recipe;
 import nl.broscience.Brochef.web.service.repositories.ProductRepository;
@@ -36,7 +39,7 @@ public class ProductService {
             return savedProduct.getId();
 
         } else {
-            throw new RecordNotFoundException("No Recipe found, make sure Recipe is created before adding products. ");
+            throw new NoRelatedObjectFoundException("No Recipe found, make sure Recipe is created before adding products. ");
         }
     }
     public Iterable<ProductDto> getAllProducts() {
@@ -59,13 +62,7 @@ public class ProductService {
             throw new RecordNotFoundException("No Goal found with this ID");
         }
     }
-    public void deletePRoduct(Long id) {
-        if (prodRepo.findById(id).isPresent()) {
-            prodRepo.deleteById(id);
-        } else {
-            throw new RecordNotFoundException("No Diet found with this ID");
-        }
-    }
+
     public ProductDto updateProduct(Long id, Product newProduct) {
 
         if(prodRepo.findById(id).isPresent()) {
@@ -74,14 +71,14 @@ public class ProductService {
             return new ProductDto(newProduct);
         }
         else {
-            throw new RecordNotFoundException("No Diet found with this ID");
+            throw new UpdateRecordException("No Diet found with this ID");
         }
     }
         public void deleteProduct(Long id) {
         if (prodRepo.findById(id).isPresent()) {
             prodRepo.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No Product found with this ID");
+            throw new DeleteRecordException("No Product found with this ID");
         }
     }
 
